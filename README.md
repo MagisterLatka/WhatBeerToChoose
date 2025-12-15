@@ -6,7 +6,7 @@
 
 To run the program use: `python3 program.py`
 
-The program utilizes clipspy and build-in tkinter libraries.
+The program utilizes clipspy and build-in tkinter libraries in Python 3.13.
 
 ---
 
