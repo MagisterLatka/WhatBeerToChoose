@@ -9,14 +9,14 @@ def labelHandler(label):
         global environment
         global root
         for fact in environment.facts():
-            if fact.template.name == 'obecnePytanie':
-                obecnePytanie = fact
-        if 'obecnePytanie' in locals():
-            label.config(text=obecnePytanie[0])
+            if fact.template.name == 'pytanie':
+                pytanie = fact
+        if 'pytanie' in locals():
+            label.config(text=pytanie[0])
         else:
             for fact in environment.facts():
-                if fact.template.name == 'wynik':
-                    wynik = fact
+                if fact.template.name == 'wyswietl':
+                    wyswietl = fact
 
             root.destroy()
             root = tk.Tk()
@@ -24,7 +24,7 @@ def labelHandler(label):
             root.maxsize(1000, 50)
             root.minsize(200, 50)
             wynikText = 'Propozycje: '
-            for item in wynik:
+            for item in wyswietl:
                 wynikText += item + ',  '
             wynikText = wynikText[:-3] + '.'
             tk.Label(root, text=wynikText).pack()
@@ -44,9 +44,12 @@ def buttonNoHandler():
 
 if __name__ == "__main__":
     environment.load('rules.clp')
-    environment.load('data.clp')
     environment.reset()
-    environment.assert_string('(obecnePytanie "Are you in Scotland?")')
+    environment.assert_string('(pytanie start)')
+    environment.run()
+    for fact in environment.facts():
+        if fact.template.name == 'pytanie':
+            pytanie = fact
 
     root.title('what sould i drink - beer-edition')
     root.maxsize(300, 100)
